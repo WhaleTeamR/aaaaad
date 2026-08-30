@@ -20,84 +20,58 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover; /* Giúp video không bị méo hình khi co giãn màn hình */
-            z-index: -1;       /* Đưa video xuống lớp nền sâu nhất */
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* 3. Định dạng CSS cho chữ nằm giữa và hiệu ứng biến mất */
+        .welcome-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            color: red;
+            font-weight: bold;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 999;
+            transition: opacity 1s ease;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 
-    <!-- 3. Chèn video vào trang (nhớ thay đường dẫn video của bạn vào src) -->
-    <video class="bg-video" autoplay muted loop playsinline>
+    <!-- THÊM id="myVideo" VÀO THẺ VIDEO bên dưới -->
+    <video id="myVideo" class="bg-video" autoplay muted loop playsinline>
         <source src="Rick Roll Link.mp4" type="video/mp4">
-
     </video>
-    <!-- 1. Thẻ chứa dòng chữ -->
-<div class="welcome-text"><b>YOU HAVE BEEN SCAMMED!!! KID</b></div>
 
-<style>
-    /* 2. Định dạng CSS cho chữ nằm giữa và hiệu ứng biến mất */
-    .welcome-text {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 50px;       /* Cỡ chữ to đùng */
-        color: red;          /* Màu chữ */
-        font-weight: bold;     /* In đậm chữ */
-        text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Đổ bóng chữ cho nổi bật trên nền video */
-        z-index: 999;          /* Nằm ở lớp trên cùng */
-        
-        /* Hiệu ứng mờ dần trong 1 giây khi ẩn */
-        transition: opacity 1s ease; 
-        opacity: 1;            /* Ban đầu hiện rõ */
-    }
-</style>
+    <div class="welcome-text"><b>YOU HAVE BEEN SCAMMED!!! KID</b></div>
 
 <script>
-    /* 3. Dùng JavaScript đếm 5 giây rồi ẩn chữ đi */
+    // 1. Tự động ẩn chữ sau 5 giây
     setTimeout(function() {
         const textElement = document.querySelector('.welcome-text');
         if (textElement) {
-            textElement.style.opacity = '0'; // Cho độ trong suốt về 0 (mờ dần mất hẳn)
-            
-            // Sau khi hiệu ứng mờ kết thúc (1 giây sau), xóa luôn khỏi HTML cho gọn
+            textElement.style.opacity = '0';
             setTimeout(function() {
                 textElement.remove();
             }, 1000);
         }
-    }, 5000); // 5000 mili-giây = 5 giây
-    
-    const robuxBtn = document.getElementById('robux-btn');
+    }, 5000);
+
+    // 2. Lấy đúng thẻ video qua id="myVideo"
     const video = document.getElementById('myVideo');
 
-        if (robuxBtn) {
-            robuxBtn.addEventListener('click', function(e) {
-                e.preventDefault(); // Chặn chuyển trang ngay lập tức để kịp bật tiếng
-
-                if (video) {
-                    video.muted = false; // Bật tiếng video
-                    video.volume = 1.0;  // Kéo âm lượng lên tối đa
-                    video.play();        // Phát video
-                }
-
-                // Chờ 0.3 giây cho tiếng kịp cất lên rồi mới chuyển hướng sang trang aaaaad
-                setTimeout(function() {
-                    window.location.href = "https://whaleteamr.github.io/aaaaad/";
-                }, 300);
-            });
-        }
-   
-    // 1. Lấy thẻ video dựa vào id="myVideo"
-    const video = document.getElementById('myVideo');
-
-    // 2. Lắng nghe sự kiện người dùng click chuột bất kỳ đâu trên trang web
+    // 3. Click bất kỳ đâu trên màn hình để bật tiếng ngay lập tức
     document.addEventListener('click', function() {
         if (video) {
-            video.muted = false; // Bật âm thanh cho video
-            video.play();        // Đảm bảo video tiếp tục phát
+            video.muted = false; // Tắt chế độ im lặng
+            video.volume = 1.0;  // Âm lượng 100%
+            video.play();        // Phát video
         }
-    }, { once: true }); // { once: true } giúp sự kiện này chỉ chạy đúng 1 lần duy nhất ở lần click đầu tiên
+    }, { once: true });
 </script>
 </body>
 </html>
