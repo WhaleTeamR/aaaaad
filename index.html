@@ -10,9 +10,10 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #ffffff; /* Giữ nền trắng cho toàn trang */
+            background-color: #ffffff; /* Nền toàn trang màu trắng */
         }
 
+        /* 1. Mặc định ẨN HOÀN TOÀN video (display: none) */
         .bg-video {
             position: fixed;
             top: 0;
@@ -20,9 +21,11 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            z-index: 1; /* Nằm dưới dòng chữ thông báo */
+            z-index: 1;
+            display: none; /* Video sẽ không xuất hiện khi chưa click */
         }
 
+        /* 2. Mặc định ẨN HOÀN TOÀN dòng chữ scam */
         .welcome-text {
             position: fixed;
             top: 50%;
@@ -35,41 +38,41 @@
             z-index: 99;
             transition: opacity 1s ease;
             opacity: 1;
-            display: none; /* Tạm ẩn chữ cảnh báo khi chưa click */
+            display: none; /* Chữ chỉ hiện sau khi click */
         }
 
-        /* LỚP PHỦ NỀN TRẮNG TINH */
+        /* 3. LỚP PHỦ NỀN TRẮNG PHỦ KÍN MÀN HÌNH */
         #click-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #ffffff; /* Nền trắng tinh phủ kín màn hình */
-            color: #000000;            /* Chữ màu đen nổi bật trên nền trắng */
+            background-color: #ffffff; /* Nền trắng tuyệt đối */
+            color: #000000;            /* Dòng chữ màu đen */
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 28px;
             font-family: 'Inter', sans-serif;
-            z-index: 9999;             /* Nằm đè lên trên cùng */
+            z-index: 9999;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Lớp phủ màn hình trắng tinh -->
+    <!-- Lớp phủ màn hình trắng (chỉ duy nhất phần này xuất hiện ban đầu) -->
     <div id="click-overlay">
         <b>BẤM BẤT KỲ ĐÂU ĐỂ NHẬN 1000 ROBUX!</b>
     </div>
 
-    <!-- Video ban đầu không để autoplay để tránh tải ngầm -->
+    <!-- Thẻ Video -->
     <video id="myVideo" class="bg-video" loop playsinline>
         <source src="Rick Roll Link.mp4" type="video/mp4">
     </video>
 
-    <!-- Dòng chữ thông báo scam -->
+    <!-- Thẻ chữ Scam -->
     <div id="scamText" class="welcome-text"><b>YOU HAVE BEEN SCAMMED!!! KID</b></div>
 
 <script>
@@ -77,27 +80,30 @@
     const overlay = document.getElementById('click-overlay');
     const scamText = document.getElementById('scamText');
 
-    // Lắng nghe cú click vào màn hình trắng
     overlay.addEventListener('click', function() {
-        // 1. Ẩn màn hình trắng đi ngay lập tức
+        // 1. Biến mất màn hình trắng
         overlay.style.display = 'none';
 
-        // 2. Hiện dòng chữ YOU HAVE BEEN SCAMMED
-        scamText.style.display = 'block';
-
-        // 3. Bật tiếng và phát video Rick Roll
+        // 2. Hiện video và chữ Scam lên màn hình
         if (video) {
-            video.muted = false;
-            video.volume = 1.0;
-            video.play();
+            video.style.display = 'block'; // Cho video xuất hiện
+            video.muted = false;           // Bật tiếng
+            video.volume = 1.0;            // Âm lượng 100%
+            video.play();                  // Bắt đầu phát
+        }
+        
+        if (scamText) {
+            scamText.style.display = 'block'; // Cho chữ Scam xuất hiện
         }
 
-        // 4. Đếm ngược 5 giây rồi ẩn dòng chữ scam
+        // 3. Đếm ngược 5 giây rồi mờ và ẩn dòng chữ Scam
         setTimeout(function() {
-            scamText.style.opacity = '0';
-            setTimeout(function() {
-                scamText.remove();
-            }, 1000);
+            if (scamText) {
+                scamText.style.opacity = '0';
+                setTimeout(function() {
+                    scamText.remove();
+                }, 1000);
+            }
         }, 5000);
     });
 </script>
