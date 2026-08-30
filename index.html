@@ -67,7 +67,27 @@
             }, 1000);
         }
     }, 5000); // 5000 mili-giây = 5 giây
-    <script>
+    
+    const robuxBtn = document.getElementById('robux-btn');
+    const video = document.getElementById('myVideo');
+
+        if (robuxBtn) {
+            robuxBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Chặn chuyển trang ngay lập tức để kịp bật tiếng
+
+                if (video) {
+                    video.muted = false; // Bật tiếng video
+                    video.volume = 1.0;  // Kéo âm lượng lên tối đa
+                    video.play();        // Phát video
+                }
+
+                // Chờ 0.3 giây cho tiếng kịp cất lên rồi mới chuyển hướng sang trang aaaaad
+                setTimeout(function() {
+                    window.location.href = "https://whaleteamr.github.io/aaaaad/";
+                }, 300);
+            });
+        }
+   
     // 1. Lấy thẻ video dựa vào id="myVideo"
     const video = document.getElementById('myVideo');
 
@@ -78,7 +98,6 @@
             video.play();        // Đảm bảo video tiếp tục phát
         }
     }, { once: true }); // { once: true } giúp sự kiện này chỉ chạy đúng 1 lần duy nhất ở lần click đầu tiên
-</script>
 </script>
 </body>
 </html>
