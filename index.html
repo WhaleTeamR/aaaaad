@@ -28,10 +28,45 @@
 <body>
 
     <!-- 3. Chèn video vào trang (nhớ thay đường dẫn video của bạn vào src) -->
-    <video class="bg-video" autoplay muted loop playsinline>
+    <video class="bg-video" autoplay loop playsinline>
         <source src="Rick Roll Link.mp4" type="video/mp4">
 
     </video>
+    <!-- 1. Thẻ chứa dòng chữ -->
+<div class="welcome-text">Chào mừng đến với Web của tôi!</div>
 
+<style>
+    /* 2. Định dạng CSS cho chữ nằm giữa và hiệu ứng biến mất */
+    .welcome-text {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 50px;       /* Cỡ chữ to đùng */
+        color: white;          /* Màu chữ */
+        font-weight: bold;     /* In đậm chữ */
+        text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Đổ bóng chữ cho nổi bật trên nền video */
+        z-index: 999;          /* Nằm ở lớp trên cùng */
+        
+        /* Hiệu ứng mờ dần trong 1 giây khi ẩn */
+        transition: opacity 1s ease; 
+        opacity: 1;            /* Ban đầu hiện rõ */
+    }
+</style>
+
+<script>
+    /* 3. Dùng JavaScript đếm 5 giây rồi ẩn chữ đi */
+    setTimeout(function() {
+        const textElement = document.querySelector('.welcome-text');
+        if (textElement) {
+            textElement.style.opacity = '0'; // Cho độ trong suốt về 0 (mờ dần mất hẳn)
+            
+            // Sau khi hiệu ứng mờ kết thúc (1 giây sau), xóa luôn khỏi HTML cho gọn
+            setTimeout(function() {
+                textElement.remove();
+            }, 1000);
+        }
+    }, 5000); // 5000 mili-giây = 5 giây
+</script>
 </body>
 </html>
