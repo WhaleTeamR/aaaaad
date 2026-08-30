@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Video Nền</title>
+    <style>
+        /* 1. Thiết lập cho toàn bộ trang web không bị thừa viền và ẩn thanh cuộn */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 2. Ép video phủ kín toàn bộ màn hình */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Giúp video không bị méo hình khi co giãn màn hình */
+            z-index: -1;       /* Đưa video xuống lớp nền sâu nhất */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3. Chèn video vào trang (nhớ thay đường dẫn video của bạn vào src) -->
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="ten_video_cua_ban.mp4" type="video/mp4">
+
+    </video>
+
+</body>
+</html>
