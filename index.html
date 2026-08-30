@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Hahahahahahahahahahahahahahahahaha</title>
+    <title>Free Robux Claim</title>
     <style>
         body, html {
             margin: 0;
@@ -10,6 +10,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: #ffffff; /* Giữ nền trắng cho toàn trang */
         }
 
         .bg-video {
@@ -19,7 +20,7 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            z-index: -1;
+            z-index: 1; /* Nằm dưới dòng chữ thông báo */
         }
 
         .welcome-text {
@@ -34,63 +35,70 @@
             z-index: 99;
             transition: opacity 1s ease;
             opacity: 1;
+            display: none; /* Tạm ẩn chữ cảnh báo khi chưa click */
         }
 
-        /* 1. LỚP PHỦ TẠO TƯƠNG TÁC (OVERLAY) */
+        /* LỚP PHỦ NỀN TRẮNG TINH */
         #click-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.7); /* Nền tối nhẹ */
-            color: white;
+            background-color: #ffffff; /* Nền trắng tinh phủ kín màn hình */
+            color: #000000;            /* Chữ màu đen nổi bật trên nền trắng */
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
-            font-family: sans-serif;
-            z-index: 9999; /* Đẩy lên trên cùng để bắt cú click đầu tiên */
+            font-size: 28px;
+            font-family: 'Inter', sans-serif;
+            z-index: 9999;             /* Nằm đè lên trên cùng */
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Lớp phủ yêu cầu click -->
+    <!-- Lớp phủ màn hình trắng tinh -->
     <div id="click-overlay">
         <b>BẤM BẤT KỲ ĐÂU ĐỂ NHẬN 1000 ROBUX!</b>
     </div>
 
-    <video id="myVideo" class="bg-video" autoplay muted loop playsinline>
+    <!-- Video ban đầu không để autoplay để tránh tải ngầm -->
+    <video id="myVideo" class="bg-video" loop playsinline>
         <source src="Rick Roll Link.mp4" type="video/mp4">
     </video>
 
-    <div class="welcome-text"><b>YOU HAVE BEEN SCAMMED!!! KID</b></div>
+    <!-- Dòng chữ thông báo scam -->
+    <div id="scamText" class="welcome-text"><b>YOU HAVE BEEN SCAMMED!!! KID</b></div>
 
 <script>
-    // Ẩn dòng chữ thông báo sau 5s
-    setTimeout(function() {
-        const textElement = document.querySelector('.welcome-text');
-        if (textElement) {
-            textElement.style.opacity = '0';
-            setTimeout(function() {
-                textElement.remove();
-            }, 1000);
-        }
-    }, 5000);
-
     const video = document.getElementById('myVideo');
     const overlay = document.getElementById('click-overlay');
+    const scamText = document.getElementById('scamText');
 
-    // 2. NGAY KHI NGƯỜI DÙNG BẤM VÀO LỚP PHỦ
+    // Lắng nghe cú click vào màn hình trắng
     overlay.addEventListener('click', function() {
+        // 1. Ẩn màn hình trắng đi ngay lập tức
+        overlay.style.display = 'none';
+
+        // 2. Hiện dòng chữ YOU HAVE BEEN SCAMMED
+        scamText.style.display = 'block';
+
+        // 3. Bật tiếng và phát video Rick Roll
         if (video) {
-            video.muted = false; // Mở tiếng ngay lập tức
+            video.muted = false;
             video.volume = 1.0;
             video.play();
         }
-        overlay.style.display = 'none'; // Xóa lớp phủ đen đi để hiện video bên dưới
+
+        // 4. Đếm ngược 5 giây rồi ẩn dòng chữ scam
+        setTimeout(function() {
+            scamText.style.opacity = '0';
+            setTimeout(function() {
+                scamText.remove();
+            }, 1000);
+        }, 5000);
     });
 </script>
 </body>
