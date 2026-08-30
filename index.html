@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Hahahahahahahahahahahahahahahahaha</title>
     <style>
-        /* 1. Thiết lập cho toàn bộ trang web không bị thừa viền và ẩn thanh cuộn */
         body, html {
             margin: 0;
             padding: 0;
@@ -13,7 +12,6 @@
             overflow: hidden;
         }
 
-        /* 2. Ép video phủ kín toàn bộ màn hình */
         .bg-video {
             position: fixed;
             top: 0;
@@ -24,7 +22,6 @@
             z-index: -1;
         }
 
-        /* 3. Định dạng CSS cho chữ nằm giữa và hiệu ứng biến mất */
         .welcome-text {
             position: fixed;
             top: 50%;
@@ -34,15 +31,37 @@
             color: red;
             font-weight: bold;
             text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 999;
+            z-index: 99;
             transition: opacity 1s ease;
             opacity: 1;
+        }
+
+        /* 1. LỚP PHỦ TẠO TƯƠNG TÁC (OVERLAY) */
+        #click-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7); /* Nền tối nhẹ */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-family: sans-serif;
+            z-index: 9999; /* Đẩy lên trên cùng để bắt cú click đầu tiên */
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- THÊM id="myVideo" VÀO THẺ VIDEO bên dưới -->
+    <!-- Lớp phủ yêu cầu click -->
+    <div id="click-overlay">
+        <b>BẤM BẤT KỲ ĐÂU ĐỂ NHẬN 1000 ROBUX!</b>
+    </div>
+
     <video id="myVideo" class="bg-video" autoplay muted loop playsinline>
         <source src="Rick Roll Link.mp4" type="video/mp4">
     </video>
@@ -50,7 +69,7 @@
     <div class="welcome-text"><b>YOU HAVE BEEN SCAMMED!!! KID</b></div>
 
 <script>
-    // 1. Tự động ẩn chữ sau 5 giây
+    // Ẩn dòng chữ thông báo sau 5s
     setTimeout(function() {
         const textElement = document.querySelector('.welcome-text');
         if (textElement) {
@@ -61,17 +80,18 @@
         }
     }, 5000);
 
-    // 2. Lấy đúng thẻ video qua id="myVideo"
     const video = document.getElementById('myVideo');
+    const overlay = document.getElementById('click-overlay');
 
-    // 3. Click bất kỳ đâu trên màn hình để bật tiếng ngay lập tức
-    document.addEventListener('click', function() {
+    // 2. NGAY KHI NGƯỜI DÙNG BẤM VÀO LỚP PHỦ
+    overlay.addEventListener('click', function() {
         if (video) {
-            video.muted = false; // Tắt chế độ im lặng
-            video.volume = 1.0;  // Âm lượng 100%
-            video.play();        // Phát video
+            video.muted = false; // Mở tiếng ngay lập tức
+            video.volume = 1.0;
+            video.play();
         }
-    }, { once: true });
+        overlay.style.display = 'none'; // Xóa lớp phủ đen đi để hiện video bên dưới
+    });
 </script>
 </body>
 </html>
