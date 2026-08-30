@@ -67,6 +67,18 @@
             }, 1000);
         }
     }, 5000); // 5000 mili-giây = 5 giây
+    <script>
+    // 1. Lấy thẻ video dựa vào id="myVideo"
+    const video = document.getElementById('myVideo');
+
+    // 2. Lắng nghe sự kiện người dùng click chuột bất kỳ đâu trên trang web
+    document.addEventListener('click', function() {
+        if (video) {
+            video.muted = false; // Bật âm thanh cho video
+            video.play();        // Đảm bảo video tiếp tục phát
+        }
+    }, { once: true }); // { once: true } giúp sự kiện này chỉ chạy đúng 1 lần duy nhất ở lần click đầu tiên
+</script>
 </script>
 </body>
 </html>
